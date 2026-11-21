@@ -1,0 +1,688 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-dark: #1d1d1b;
+    --primary-light: #ffffff;
+    --accent-color: #666666;
+    --text-gray: #999999;
+    --border-color: #e0e0e0;
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.hero-locked {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+/* BACKGROUND LOGO with 3D Depth Animation */
+.loading-bg-logo {
+    position: absolute;
+    inset: 0;
+    background: url("/images/logo.png") center/contain no-repeat;
+    opacity: 0.1;
+    pointer-events: none;
+    z-index: 1;
+
+    transform-origin: center center;
+    animation: logoDepth 2.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+/* 3D depth animation */
+@keyframes logoDepth {
+    0% {
+        transform: perspective(1600px) translateZ(380px) scale(3.2) rotate(0deg);
+        opacity: 0.14;
+        filter: blur(1px);
+    }
+
+    40% {
+        transform: perspective(1600px) translateZ(200px) scale(2.2);
+        opacity: 0.10;
+    }
+
+    70% {
+        transform: perspective(1600px) translateZ(60px) scale(1.4);
+        opacity: 0.07;
+    }
+
+    100% {
+        transform: perspective(1600px) translateZ(0px) scale(1);
+        opacity: 0.05;
+        filter: none;
+    }
+}
+
+.loading-bg-logo.after-zoom {
+    animation: bgDrift 14s ease-in-out infinite;
+}
+
+@keyframes bgDrift {
+    0%   { transform: translate(0,0) scale(1); }
+    50%  { transform: translate(1.5%, -1.5%) scale(1.015); }
+    100% { transform: translate(0,0) scale(1); }
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+/* Main center logo */
+.loading-main-logo {
+    width: 260px;
+    margin-bottom: 30px;
+}
+
+/* Counter */
+.loading-counter {
+    font-size: 42px;
+    font-weight: 700;
+    color: #888888;
+    margin-bottom: 10px;
+}
+
+.counter-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #555555;
+}
+
+/* Tagline */
+.loading-tagline {
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: #999999;
+}
+
+/* Loading bar */
+.loading-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.1);
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0;
+    background: #d62323;
+    transition: width 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes loadingProgress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: transparent;
+    z-index: 1000;
+    transition: background 0.3s ease;
+}
+
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure header has background in content-view mode */
+body.content-view-active .header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+    max-width: 100%;
+    padding: 0 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    height: 80px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Navigation */
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 50px;
+    align-items: center;
+}
+
+.nav-list > li {
+    position: relative;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-list a.active {
+    color: #d62323;
+}
+
+.header.scrolled .nav-list a {
+    color: var(--primary-dark);
+}
+
+.header.scrolled .nav-list a:hover {
+    color: var(--accent-color);
+}
+
+.header.scrolled .nav-list a.active {
+    color: #d62323;
+}
+
+/* Contact Button */
+.nav-contact a {
+    text-decoration: none;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+}
+
+.nav-contact a:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-contact a.active {
+    color: #d62323;
+}
+
+.header.scrolled .nav-contact a {
+    color: var(--primary-dark);
+}
+
+.header.scrolled .nav-contact a:hover {
+    color: var(--accent-color);
+}
+
+.header.scrolled .nav-contact a.active {
+    color: #d62323;
+}
+
+/* Menu Toggle for Mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--primary-dark);
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Slides Menu Icon - Hidden by default, shown in content-view mode */
+.slides-menu-icon {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.slides-menu-icon span {
+    width: 30px;
+    height: 3px;
+    background: #000000;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Slides background animation (same as loading screen) */
+.slides-bg-logo {
+    position: fixed;
+    inset: 0;
+    background: url("/images/logo.png") center/contain no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: -1;
+
+    transform-origin: center center;
+    animation: bgDrift 14s ease-in-out infinite;
+}
+
+/* Show hamburger icon only in content-view mode */
+body.content-view-active .slides-menu-icon {
+    display: flex !important;
+}
+
+/* Hide regular nav items in content-view mode */
+body.content-view-active .nav-list,
+body.content-view-active .nav-contact {
+    display: none !important;
+}
+
+/* Full Screen Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    z-index: 99999; /* Above slides */
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Close button (top right) */
+.menu-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: #d62323;
+    color: white;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    transition: transform 0.3s ease;
+}
+
+.menu-close span {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background-color: white;
+}
+
+.menu-close span:first-child {
+    transform: rotate(45deg);
+}
+
+.menu-close span:last-child {
+    transform: rotate(-45deg);
+}
+
+.menu-close:hover {
+    transform: rotate(90deg);
+}
+
+/* Menu list */
+.menu-overlay-nav {
+    text-align: center;
+}
+
+.menu-overlay-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-overlay-list li {
+    margin: 20px 0;
+}
+
+.menu-overlay-link {
+    display: block;
+    font-size: 54px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 18px 0;
+    color: #000;
+    text-decoration: none;
+    transition: 
+        color 0.25s ease,
+        font-weight 0.25s ease,
+        transform 0.25s ease;
+}
+
+.menu-overlay-link:hover {
+    color: #d62323;
+    font-weight: 600;
+    transform: scale(1.05);
+}
+
+.menu-overlay-contact {
+    margin-top: 40px;
+}
+
+.menu-overlay-contact a {
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: #999;
+    text-decoration: none;
+}
+
+.menu-overlay-contact a:hover {
+    color: #d62323;
+}
+
+.menu-bg-logo {
+    position: absolute;
+    inset: 0;
+    background: url("/images/logo.png") center/45% no-repeat;
+    opacity: 0.06;
+    z-index: 0;
+    pointer-events: none;
+    animation: bgDrift 14s ease-in-out infinite;
+}
+
+/* Highlight active page */
+.menu-overlay-link.active {
+    color: #d62323;
+    font-weight: 700;
+}
+
+/* Hide normal hamburger when slides menu icon exists */
+body.content-view-active .menu-toggle {
+    display: none !important;
+}
+
+/* Hide slides menu icon by default */
+.slides-menu-icon {
+    display: none;
+}
+
+/* Show slides menu icon only inside slides mode */
+body.content-view-active .slides-menu-icon {
+    display: flex !important;
+}
+
+/* Mobile: No double menu — hide one */
+/* MOBILE: hide center hamburger AND hide CONTACT */
+@media (max-width: 768px) {
+
+    /* Hide the old menu toggle (center icon) */
+    .menu-toggle {
+        display: none !important;
+    }
+
+    /* Hide the CONTACT button on the right */
+    .nav-contact {
+        display: none !important;
+    }
+
+    /* Hide desktop nav list */
+    .nav-list {
+        display: none !important;
+    }
+
+    /* Keep slides-menu-icon visible on right */
+    .slides-menu-icon {
+        display: flex !important;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .nav-container {
+        position: relative;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-close {
+        top: 20px;
+        right: 20px;
+        font-size: 40px;
+    }
+
+    .menu-overlay-link {
+        font-size: 28px;
+        padding: 12px 0;
+    }
+
+    .menu-overlay-contact a {
+        font-size: 11px;
+        padding: 10px 25px;
+    }
+}
+
+/* Footer */
+.footer {
+    background: var(--primary-dark);
+    color: var(--primary-light);
+    padding: 80px 0 40px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 60px;
+    margin-bottom: 60px;
+}
+
+.footer-section h3 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-address p {
+    font-size: 16px;
+    color: var(--text-gray);
+    margin-bottom: 5px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-light);
+}
+
+.footer-section p {
+    color: var(--text-gray);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-bottom p {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-bottom-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: var(--primary-light);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .nav-container {
+        padding: 0 20px;
+    }
+
+    .nav-list {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: white;
+        flex-direction: column;
+        padding: 40px;
+        gap: 30px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-list.active {
+        display: flex;
+        transform: translateX(0);
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo a {
+        font-size: 24px;
+    }
+
+    .footer {
+        padding: 60px 0 30px;
+    }
+}

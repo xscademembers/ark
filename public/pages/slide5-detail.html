@@ -1,0 +1,64 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">WHO WE ARE</p>
+        <h2 class="detail-title">
+            Experienced Teams, Trusted Partnerships, Delivering Planned, Efficient, Value-Driven Construction Solutions
+        </h2>
+        <p class="detail-description">
+            At ARKA DEVELOPERS, we believe that successful projects are the result of deliberate planning, technical expertise, and seamless
+            collaboration — leaving nothing to chance. To uphold this standard, we have assembled a dedicated team of seasoned professionals
+            with extensive experience across diverse construction disciplines. <br /><br />
+            Our core leadership, project managers, engineers, and site teams have worked together for many years, fostering a culture of trust,
+            accountability, and operational efficiency. This long-standing collaboration enables our projects to progress smoothly, with
+            streamlined coordination and minimal friction at every stage of execution. <br />
+            In addition, we maintain strong, time-tested partnerships with reputable vendors and subcontractors, many of whom have
+            collaborated with us for over a decade. These enduring relationships allow us to secure reliable resources, competitive pricing, and
+            consistent quality — empowering us to deliver smarter, more efficient, and value-driven solutions tailored to our clients objectives.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

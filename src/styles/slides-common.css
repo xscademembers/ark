@@ -1,0 +1,235 @@
+/* Common Slide Styles - Shared across all slides */
+
+/* Base slide container */
+.slide-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Left Side Panel - Counter and Progress (used in video slides) */
+.slide-left-panel {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 100;
+    padding: 20px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.slide-left-panel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.slide-counter-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 14px;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.slide-progress-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.slide-progress-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    display: block;
+    transition: background 0.3s ease;
+}
+
+.slide-progress-dots .dot.active {
+    background: #ffffff;
+}
+
+/* Right Side Panel - Scroll to Explore (used in all slides) */
+.slide-right-panel {
+    position: absolute;
+    right: 50px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    z-index: 100;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 20px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.slide-right-panel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.scroll-explore-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 3px;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.slide-right-panel:hover .scroll-explore-text {
+    color: #ffffff;
+}
+
+.scroll-arrow {
+    font-size: 36px;
+    color: #d62323;
+    animation: arrowBounce 2s ease-in-out infinite;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.slide-right-panel:hover .scroll-arrow {
+    color: #d62323;
+}
+
+@keyframes arrowBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* Responsive Design for Common Slide Elements */
+@media (max-width: 1024px) {
+    .slide-left-panel {
+        left: 30px;
+        padding: 15px 12px;
+        gap: 20px;
+    }
+
+    .slide-counter-vertical {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .slide-progress-dots {
+        gap: 12px;
+    }
+
+    .slide-progress-dots .dot {
+        width: 7px;
+        height: 7px;
+    }
+
+    .slide-right-panel {
+        right: 30px;
+        bottom: 60px;
+        padding: 15px 12px;
+        gap: 20px;
+    }
+
+    .scroll-explore-text {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+    }
+
+    .scroll-arrow {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slide-left-panel {
+        left: 20px;
+        padding: 12px 10px;
+        gap: 15px;
+    }
+
+    .slide-counter-vertical {
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .slide-progress-dots {
+        gap: 10px;
+    }
+
+    .slide-progress-dots .dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .slide-right-panel {
+        right: 20px;
+        bottom: 30px;
+        padding: 12px 10px;
+        gap: 15px;
+    }
+
+    .scroll-explore-text {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .scroll-arrow {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .slide-left-panel {
+        left: 15px;
+        padding: 10px 8px;
+        gap: 12px;
+    }
+
+    .slide-counter-vertical {
+        font-size: 10px;
+    }
+
+    .slide-progress-dots {
+        gap: 8px;
+    }
+
+    .slide-progress-dots .dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .slide-right-panel {
+        right: 15px;
+        bottom: 25px;
+        padding: 10px 8px;
+        gap: 12px;
+    }
+
+    .scroll-explore-text {
+        font-size: 7px;
+        letter-spacing: 1.5px;
+    }
+
+    .scroll-arrow {
+        font-size: 20px;
+    }
+}

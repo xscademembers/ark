@@ -1,0 +1,63 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">Our Story</p>
+        <h2 class="detail-title">
+            Quality as Our Culture:<br>
+            Excellence Guiding Every Decision and Delivering Enduring Value
+        </h2>
+        <p class="detail-description">
+            Quality is not merely a benchmark we strive to achieve — it is a core principle deeply embedded in our organizational culture. It
+            defines our mindset, guides our processes, and shapes every decision we make. From concept development to project delivery, our
+            commitment to excellence is reflected in the precision of our planning, the integrity of our execution, and the enduring value we
+            create for our clients. <br /><br />
+            This unwavering attitude toward quality has been carefully cultivated within our organization, ensuring that every project we
+            undertake is executed with consistency, accountability, and superior craftsmanship — setting standards that go beyond compliance
+            and exceed expectations.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

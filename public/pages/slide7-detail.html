@@ -1,0 +1,64 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">OUR PERSONAL COMMITMENT</p>
+        <h2 class="detail-title">
+            People-Centered Values, Trusted Relationships, and Integrity Driving Exceptional Construction Experiences
+        </h2>
+        <p class="detail-description">
+            At its core, construction is not solely about creating structures — it is about serving people, building relationships, and earning trust.
+            At ARKA DEVELOPERS, we place people at the centre of everything we do, recognizing that long-term success is built on integrity,
+            collaboration, and mutual respect. <br /><br />
+            We are committed to consistently exceeding client expectations by fostering transparent, dependable, and results-driven
+            partnerships. Through open communication, ethical business practices, and a proactive service approach, we cultivate relationships
+            founded on trust, confidence, and accountability. <br />
+            Guided by our family-oriented culture, we take genuine pride in working alongside our clients, consultants, and partners. The
+            relationships we build and the confidence entrusted to us are the most rewarding outcomes of our work — reinforcing our dedication
+            to delivering not only exceptional projects, but also exceptional experiences.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

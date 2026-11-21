@@ -1,0 +1,60 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">OUR VISION</p>
+        <h2 class="detail-title">
+            Going Beyond Expectations Through Innovative Design, Collaboration, and Lasting Value
+        </h2>
+        <p class="detail-description">
+            We Go Beyond the Expected <br />
+            Our vision is rooted in collaboration and clarity. By engaging closely with clients, partners, and stakeholders at every stage, we aim to understand objectives, operational needs, and long-term aspirations. This approach enables us to deliver tailored developments that go beyond conventional standards — projects that are purpose-driven, precisely executed, and designed to create lasting value for generations. <br /><br />
+            Our collaborative approach ensures a thorough understanding of your objectives, operational requirements, and long-term vision. By
+            engaging closely with you at every stage, we develop tailored solutions that transcend conventional expectations — delivering
+            projects that are precisely aligned with your goals, efficiently executed, and engineered to provide lasting value.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

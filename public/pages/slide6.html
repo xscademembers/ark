@@ -1,0 +1,51 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1: Our Story -->
+<div class="slide-content slide-video-type slide-1">
+    <div class="slides-bg-logo"></div>
+    <div class="slide-background">
+        <video class="slide-video" autoplay muted loop playsinline>
+            <source src="../videos/slides/slide6.mp4" type="video/mp4">
+        </video>
+        <div class="slide-overlay"></div>
+    </div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="slide-text">
+        <p class="slide-subtitle">OUR SAFETY SERVICES</p>
+        <h1 class="slide-title">
+            Safety-First Practices Creating Secure, Compliant, and Healthy Work Environments Everywhere
+        </h1>
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>
+

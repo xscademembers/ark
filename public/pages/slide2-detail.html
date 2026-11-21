@@ -1,0 +1,62 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">Our Story</p>
+        <h2 class="detail-title">
+            Building Trust Through Transparent Partnerships, Delivering Excellence and Lasting Value
+        </h2>
+        <p class="detail-description">
+            We believe that exceptional construction outcomes are built upon strong and transparent client relationships. Quality construction
+            begins with a quality partnership — one founded on trust, open communication, accountability, and a clear understanding of client
+            objectives. <br /><br />
+            From the initial consultation through project completion and beyond, we are committed to fostering collaborative relationships that
+            prioritize your interests. By maintaining consistent communication, proactive problem-solving, and uncompromising service
+            standards, we ensure that every project is delivered with precision, integrity, and lasting value — reinforcing our promise of reliability
+            and excellence at every stage.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">OUR EXPERTISE</p>
+        <h2 class="detail-title">
+            Expert Craftsmanship and Full-Service Excellence Delivering Unmatched Client Satisfaction Worldwide
+        </h2>
+        <p class="detail-description">
+            A Higher Level of Satisfaction — Inside and Out <br />
+            Rooted in our origins as a high-end interiors contracting firm, our foundation has always been built upon meticulous craftsmanship
+            and an uncompromising attention to detail. Every finish, fixture, and functional element is executed with precision, reflecting our
+            commitment to superior quality standards. <br /><br />
+            As we have grown and evolved into a full-service general contracting and construction management organization, our dedication to
+            excellence has remained steadfast. Today, Arka Developers. is recognized as one of the most highly regarded construction management
+            firms across the healthcare, retail, commercial, and industrial sectors. <br />
+            While we take pride in our reputation for delivering superior workmanship, our greatest distinction lies in our unwavering
+            commitment to client satisfaction. Every project is guided by collaborative engagement, transparent communication, and a relentless
+            focus on exceeding expectations — ensuring that each client experience is defined by reliability, integrity, and lasting value.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>

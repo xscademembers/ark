@@ -1,0 +1,66 @@
+<div id="navbar-placeholder"></div>
+
+<script>
+    fetch('../components/navbar.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-placeholder').innerHTML = html;
+
+            // Reinitialize menu after navbar loads
+            if (typeof initSlidesMenuOverlay === 'function') {
+                initSlidesMenuOverlay();
+            }
+            if (typeof initMobileMenu === 'function') {
+                initMobileMenu();
+            }
+        });
+</script>
+
+<!-- Slide 1 Detail Page: Our Story Content -->
+<div class="slide-content slide-detail-type slide-1-detail">
+    <div class="slides-bg-logo"></div>
+    <!-- Background for mobile -->
+    <div class="slide-detail-background">
+        <img src="../images/slide1-image.png" alt="Background" class="detail-bg-image">
+    </div>
+
+    <!-- Left Red Block -->
+    <div class="left-red-block"></div>
+
+    <!-- Left Side: Counter and Progress -->
+    <div class="slide-left-panel">
+        <div class="slide-counter-vertical"></div>
+        <div class="slide-divider"></div>
+        <div class="slide-progress-dots">
+            <!-- Progress dots will be dynamically generated -->
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="slide-detail-content">
+        <p class="detail-subtitle">OUR SAFETY SERVICES</p>
+        <h2 class="detail-title">
+            Safety-First Practices Creating Secure, Compliant, and Healthy Work Environments Everywhere
+        </h2>
+        <p class="detail-description">
+            Building a Safer Workplace <br />
+            At ARKA DEVELOPERS, safety is an integral part of our operational culture and a fundamental responsibility shared by every
+            member of our organization. We are firmly committed to maintaining the highest safety standards to provide a secure, healthy, and
+            compliant work environment across all project sites. <br /><br />
+            Our safety framework begins with comprehensive employee orientation programs that establish a strong foundation in workplace
+            safety practices, regulatory compliance, and risk awareness. This commitment is reinforced through continuous training initiatives,
+            regular toolbox talks, and weekly on-site safety inspections designed to identify potential hazards, implement corrective actions, and
+            ensure strict adherence to established safety protocols. <br />
+            Through proactive monitoring, disciplined safety management systems, and a culture of accountability, we minimize risk, safeguard
+            our workforce, and ensure uninterrupted project progress — reaffirming our dedication to operational excellence and workforce
+            well-being.
+        </p>
+        <!-- <a href="#" class="detail-cta">DISCOVER MORE ABOUT OUR STORY</a> -->
+    </div>
+
+    <!-- Right Side: Scroll to Explore -->
+    <div class="slide-right-panel">
+        <div class="scroll-explore-text">SCROLL TO EXPLORE</div>
+        <div class="scroll-arrow">↓</div>
+    </div>
+</div>
