@@ -3,14 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { useHomeLoader } from "@/hooks/useHomeLoader";
 import { slidesData } from "@/lib/slidesData";
 import SlideContent from "./SlideContent";
 
 export default function HomePage() {
-  const [counter, setCounter] = useState(0);
-  const [loadingHidden, setLoadingHidden] = useState(false);
-  const [loadingGone, setLoadingGone] = useState(false);
-  const [heroAnimate, setHeroAnimate] = useState(false);
   const [contentViewActive, setContentViewActive] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
@@ -23,64 +20,16 @@ export default function HomePage() {
   const pageIndexRef = useRef(0);
   const totalSlides = slidesData.length;
 
+  const { progress, loadingHidden, loadingGone, heroAnimate } = useHomeLoader({
+    videoRef,
+  });
+
   useEffect(() => {
     slideIndexRef.current = slideIndex;
   }, [slideIndex]);
   useEffect(() => {
     pageIndexRef.current = pageIndex;
   }, [pageIndex]);
-
-  useEffect(() => {
-    document.body.classList.add("loading");
-
-    let count = 0;
-    const target = 100;
-    const duration = 2000;
-    const increment = target / (duration / 16);
-
-    const counterInterval = setInterval(() => {
-      count += increment;
-      if (count >= target) {
-        count = target;
-        clearInterval(counterInterval);
-      }
-      setCounter(Math.floor(count));
-    }, 16);
-
-    const bgLogo = document.querySelector(
-      ".loading-bg-logo",
-    ) as HTMLElement | null;
-    const animTimer = setTimeout(() => {
-      if (bgLogo) bgLogo.style.animationPlayState = "running";
-    }, 50);
-
-    let finishTimer: ReturnType<typeof setTimeout> | undefined;
-
-    const finish = () => {
-      finishTimer = setTimeout(() => {
-        setLoadingHidden(true);
-        document.body.classList.remove("loading");
-        document.body.classList.add("hero-locked");
-        setHeroAnimate(true);
-        setTimeout(() => setLoadingGone(true), 800);
-      }, 2800);
-    };
-
-    if (document.readyState === "complete") {
-      finish();
-    } else {
-      window.addEventListener("load", finish);
-    }
-
-    return () => {
-      clearInterval(counterInterval);
-      clearTimeout(animTimer);
-      if (finishTimer) clearTimeout(finishTimer);
-      window.removeEventListener("load", finish);
-      document.body.classList.remove("loading", "hero-locked", "content-view-active");
-      document.body.style.overflow = "";
-    };
-  }, []);
 
   const openContentView = useCallback(() => {
     document.body.style.overflow = "hidden";
@@ -219,14 +168,14 @@ export default function HomePage() {
               className="loading-main-logo"
             />
             <div className="loading-counter">
-              <span className="counter-number">{counter}</span>
+              <span className="counter-number">{progress}</span>
             </div>
             <div className="loading-tagline">QUALITY IS OUR STANDARD</div>
           </div>
           <div className="loading-bar">
             <div
               className="loading-progress"
-              style={{ width: `${counter}%` }}
+              style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
@@ -238,36 +187,54 @@ export default function HomePage() {
         <video
           ref={videoRef}
           className="hero-video"
-          autoPlay
           muted
           loop
           playsInline
+          preload="auto"
+          // Autoplay after loader finishes (hook calls play())
         >
           <source src="/videos/HomePageVideo1.mp4" type="video/mp4" />
         </video>
 
-        <div className="hero-lower">
-          <div className={`hero-left${heroAnimate ? " animate" : ""}`}>
-            <p className="tagline">EXPERTS SINCE 2021</p>
-            <h3>
-              Arka Developers is a design-driven real estate firm that curates
-              environments where architectural excellence, modern lifestyle, and
-              enduring value converge.
-            </h3>
-          </div>
+        <div className="hero-bottom">
+          <div className="hero-lower">
+            <div className={`hero-left${heroAnimate ? " animate" : ""}`}>
+              <p className="tagline">EXPERTS SINCE 2021</p>
+              <h3>
+                Arka Developers is a design-driven real estate firm that curates
+                environments where architectural excellence, modern lifestyle,
+                and enduring value converge.
+              </h3>
+            </div>
 
-          <div className={`hero-middle${heroAnimate ? " animate" : ""}`}>
-            <p style={{ color: "rgb(208, 208, 208)" }}>
-              The Arka signature is defined by a holistic approach to
-              development, where sophisticated architecture, sustainable
-              innovation, and punctual execution intersect. Our commitment
-              extends beyond the physical structure, ensuring that every project
-              reinforces a foundation of long-term reliability for our clients.
-            </p>
+            <div className={`hero-middle${heroAnimate ? " animate" : ""}`}>
+              <p style={{ color: "rgb(208, 208, 208)" }}>
+                The Arka signature is defined by a holistic approach to
+                development, where sophisticated architecture, sustainable
+                innovation, and punctual execution intersect. Our commitment
+                extends beyond the physical structure, ensuring that every
+                project reinforces a foundation of long-term reliability for our
+                clients.
+              </p>
+            </div>
+
+            <div
+              className={`hero-right${heroAnimate ? " animate" : ""}`}
+              onClick={openContentView}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") openContentView();
+              }}
+            >
+              <div className="scroll-text" onClick={openContentView}>
+                Scroll to discover
+              </div>
+            </div>
           </div>
 
           <div
-            className={`hero-right${heroAnimate ? " animate" : ""}`}
+            className={`hero-arrow${heroAnimate ? " animate" : ""}`}
             onClick={openContentView}
             role="button"
             tabIndex={0}
@@ -275,22 +242,8 @@ export default function HomePage() {
               if (e.key === "Enter" || e.key === " ") openContentView();
             }}
           >
-            <div className="scroll-text" onClick={openContentView}>
-              Scroll to discover
-            </div>
+            ↓
           </div>
-        </div>
-
-        <div
-          className={`hero-arrow${heroAnimate ? " animate" : ""}`}
-          onClick={openContentView}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") openContentView();
-          }}
-        >
-          ↓
         </div>
       </section>
 

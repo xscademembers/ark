@@ -63,6 +63,23 @@ body.hero-locked {
 
     transform-origin: center center;
     animation: logoDepth 2.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .loading-main-logo {
+        width: min(180px, 46vw);
+    }
+
+    .counter-number {
+        font-size: 36px;
+    }
+
+    .loading-tagline {
+        font-size: 10px;
+        letter-spacing: 3px;
+        padding: 0 16px;
+    }
 }
 
 /* 3D depth animation */
@@ -151,7 +168,7 @@ body.hero-locked {
     height: 100%;
     width: 0;
     background: #d62323;
-    transition: width 0.3s ease;
+    transition: width 0.08s linear;
 }
 
 @keyframes fadeInUp {
