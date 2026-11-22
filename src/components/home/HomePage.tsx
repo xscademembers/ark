@@ -172,14 +172,18 @@ export default function HomePage() {
     contentView?.addEventListener("wheel", onWheel as EventListener, {
       passive: false,
     } as AddEventListenerOptions);
-    contentView?.addEventListener("touchstart", onTouchStart, { passive: true });
-    contentView?.addEventListener("touchend", onTouchEnd, { passive: true });
+    contentView?.addEventListener("touchstart", onTouchStart as EventListener, {
+      passive: true,
+    });
+    contentView?.addEventListener("touchend", onTouchEnd as EventListener, {
+      passive: true,
+    });
     document.addEventListener("keydown", onKey);
 
     return () => {
       contentView?.removeEventListener("wheel", onWheel as EventListener);
-      contentView?.removeEventListener("touchstart", onTouchStart);
-      contentView?.removeEventListener("touchend", onTouchEnd);
+      contentView?.removeEventListener("touchstart", onTouchStart as EventListener);
+      contentView?.removeEventListener("touchend", onTouchEnd as EventListener);
       document.removeEventListener("keydown", onKey);
     };
   }, [
