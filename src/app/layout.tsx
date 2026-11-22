@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "@/styles/styles.css";
+import "@/styles/footer.css";
+import "@/styles/responsive.css";
 import {
   organizationJsonLd,
   SITE_NAME,
