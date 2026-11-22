@@ -20,6 +20,7 @@ export default function ContactClient() {
   const themeClass = project && THEME_MAP[project] ? THEME_MAP[project] : "";
 
   const [activeOption, setActiveOption] = useState(0);
+  const [mapActive, setMapActive] = useState(false);
   const [fileLabel, setFileLabel] = useState("Join a file");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -349,7 +350,11 @@ export default function ContactClient() {
             </div>
           </div>
 
-          <div className="request-map">
+          <div
+            className={`request-map${mapActive ? " map-active" : ""}`}
+            onClick={() => setMapActive(true)}
+          >
+            <span className="map-scroll-hint">Tap to use the map</span>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15203.820729382!2d83.3861866!3d17.8002179!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395b703573dbcd%3A0xca06ff987866d420!2sARKA%20DEVELOPERS!5e0!3m2!1sen!2sin!4v1702896000000!5m2!1sen!2sin"
               width="100%"

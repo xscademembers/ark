@@ -14,17 +14,21 @@ export default function SolutionsClient() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const compact = window.matchMedia("(max-width: 1024px)").matches;
+
     const ctx = gsap.context(() => {
       gsap.from(".hero-bg", {
-        x: 180,
-        scale: 1.1,
+        x: compact ? 0 : 180,
+        y: compact ? 16 : 0,
+        scale: compact ? 1 : 1.1,
         opacity: 0,
         duration: 1.4,
         ease: "power4.out",
       });
 
       gsap.from(".hero-white", {
-        x: -160,
+        x: compact ? 0 : -160,
+        y: compact ? 20 : 0,
         opacity: 0,
         duration: 1.2,
         ease: "power4.out",
@@ -65,9 +69,10 @@ export default function SolutionsClient() {
           gsap.from(text, {
             scrollTrigger: {
               trigger: row,
-              start: "top 80%",
+              start: "top 85%",
             },
-            x: i % 2 === 0 ? -120 : 120,
+            x: compact ? 0 : i % 2 === 0 ? -120 : 120,
+            y: compact ? 28 : 0,
             opacity: 0,
             duration: 1.1,
             ease: "power3.out",
@@ -78,10 +83,11 @@ export default function SolutionsClient() {
           gsap.from(image, {
             scrollTrigger: {
               trigger: row,
-              start: "top 80%",
+              start: "top 85%",
             },
-            x: i % 2 === 0 ? 120 : -120,
-            scale: 1.08,
+            x: compact ? 0 : i % 2 === 0 ? 120 : -120,
+            y: compact ? 28 : 0,
+            scale: compact ? 1 : 1.08,
             opacity: 0,
             duration: 1.3,
             ease: "power3.out",

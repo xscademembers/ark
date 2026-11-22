@@ -15,6 +15,8 @@ export default function AboutClient() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const compact = window.matchMedia("(max-width: 1024px)").matches;
+
     const ctx = gsap.context(() => {
       gsap.set(
         [
@@ -79,10 +81,11 @@ export default function AboutClient() {
         gsap.from(block, {
           scrollTrigger: {
             trigger: block,
-            start: "top 80%",
+            start: "top 88%",
             toggleActions: "play none none reverse",
           },
-          x: isEven ? -60 : 60,
+          x: compact ? 0 : isEven ? -60 : 60,
+          y: compact ? 24 : 0,
           opacity: 0,
           duration: 0.8,
           ease: "power3.out",
@@ -127,16 +130,18 @@ export default function AboutClient() {
         delay: 0.4,
       });
 
-      gsap.to(".about-hero-image img", {
-        scrollTrigger: {
-          trigger: ".about-hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-        y: 150,
-        ease: "none",
-      });
+      if (!compact) {
+        gsap.to(".about-hero-image img", {
+          scrollTrigger: {
+            trigger: ".about-hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+          y: 150,
+          ease: "none",
+        });
+      }
 
       document.querySelectorAll(".story-block").forEach((block) => {
         block.addEventListener("mouseenter", () => {

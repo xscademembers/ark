@@ -14,9 +14,12 @@ export default function ProcessClient() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const compact = window.matchMedia("(max-width: 1024px)").matches;
+
     const ctx = gsap.context(() => {
       gsap.from(".title-line", {
-        x: -50,
+        x: compact ? 0 : -50,
+        y: compact ? 16 : 0,
         opacity: 0,
         duration: 0.7,
         stagger: 0.15,
@@ -59,10 +62,11 @@ export default function ProcessClient() {
           gsap.from(number, {
             scrollTrigger: {
               trigger: step,
-              start: "top 75%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
-            x: isRight ? -200 : 200,
+            x: compact ? 0 : isRight ? -200 : 200,
+            y: compact ? 20 : 0,
             opacity: 0,
             duration: 1,
             ease: "power3.out",
@@ -72,10 +76,11 @@ export default function ProcessClient() {
           gsap.from(text, {
             scrollTrigger: {
               trigger: step,
-              start: "top 80%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
-            x: isRight ? -80 : 80,
+            x: compact ? 0 : isRight ? -80 : 80,
+            y: compact ? 24 : 0,
             opacity: 0,
             duration: 1,
             ease: "power3.out",
@@ -85,11 +90,12 @@ export default function ProcessClient() {
           gsap.from(image, {
             scrollTrigger: {
               trigger: step,
-              start: "top 80%",
+              start: "top 85%",
               toggleActions: "play none none reverse",
             },
-            x: isRight ? 80 : -80,
-            scale: 1.05,
+            x: compact ? 0 : isRight ? 80 : -80,
+            y: compact ? 24 : 0,
+            scale: compact ? 1 : 1.05,
             opacity: 0,
             duration: 1.2,
             ease: "power3.out",

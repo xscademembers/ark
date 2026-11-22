@@ -20,6 +20,11 @@ export default function HomePage() {
   const pageIndexRef = useRef(0);
   const totalSlides = slidesData.length;
 
+  const isCompactViewport = useCallback(
+    () => window.matchMedia("(max-width: 1024px)").matches,
+    [],
+  );
+
   const { progress, loadingHidden, loadingGone, heroAnimate } = useHomeLoader({
     videoRef,
   });
@@ -98,6 +103,7 @@ export default function HomePage() {
     let heroScrollTimeout: ReturnType<typeof setTimeout>;
 
     const onWheel = (e: WheelEvent) => {
+      if (isCompactViewport()) return;
       if (document.body.classList.contains("content-view-active")) return;
       clearTimeout(heroScrollTimeout);
       if (isHeroScrolling) return;
@@ -115,12 +121,16 @@ export default function HomePage() {
       window.removeEventListener("wheel", onWheel);
       clearTimeout(heroScrollTimeout);
     };
-  }, [heroAnimate, contentViewActive, openContentView]);
+  }, [heroAnimate, contentViewActive, openContentView, isCompactViewport]);
 
   useEffect(() => {
     if (!contentViewActive) return;
 
+    const contentView = document.querySelector(".content-view");
+
     const onWheel = (e: WheelEvent) => {
+      // On phones and tablets the story is a normal scrolling page.
+      if (isCompactViewport()) return;
       e.preventDefault();
       if (scrollLockRef.current || navigatingRef.current) return;
       scrollLockRef.current = true;
@@ -129,6 +139,21 @@ export default function HomePage() {
       setTimeout(() => {
         scrollLockRef.current = false;
       }, 1000);
+    };
+
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0]?.clientY ?? 0;
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!isCompactViewport() || !contentView) return;
+      const canScroll = contentView.scrollHeight > contentView.clientHeight + 24;
+      if (canScroll) return;
+      const endY = e.changedTouches[0]?.clientY ?? touchStartY;
+      const delta = touchStartY - endY;
+      if (Math.abs(delta) < 48) return;
+      if (delta > 0) navigateNext();
+      else navigatePrev();
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -144,17 +169,26 @@ export default function HomePage() {
       }
     };
 
-    const contentView = document.querySelector(".content-view");
     contentView?.addEventListener("wheel", onWheel as EventListener, {
       passive: false,
     } as AddEventListenerOptions);
+    contentView?.addEventListener("touchstart", onTouchStart, { passive: true });
+    contentView?.addEventListener("touchend", onTouchEnd, { passive: true });
     document.addEventListener("keydown", onKey);
 
     return () => {
       contentView?.removeEventListener("wheel", onWheel as EventListener);
+      contentView?.removeEventListener("touchstart", onTouchStart);
+      contentView?.removeEventListener("touchend", onTouchEnd);
       document.removeEventListener("keydown", onKey);
     };
-  }, [contentViewActive, navigateNext, navigatePrev, closeContentView]);
+  }, [
+    contentViewActive,
+    navigateNext,
+    navigatePrev,
+    closeContentView,
+    isCompactViewport,
+  ]);
 
   return (
     <>

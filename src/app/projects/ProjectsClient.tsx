@@ -174,6 +174,9 @@ export default function ProjectsClient() {
   // Wheel + keyboard navigation
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
+      // Stacked mobile layout should scroll. Project changes stay on the nav.
+      if (window.matchMedia("(max-width: 1024px)").matches) return;
+
       if (transitioningRef.current) {
         e.preventDefault();
         return;
